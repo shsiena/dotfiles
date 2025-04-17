@@ -83,3 +83,15 @@ vim.keymap.set("n", "<leader>dd", require("telescope.builtin").diagnostics, { de
 vim.cmd([[colorscheme tokyonight-night]])
 
 require("core.plugin-mappings")
+vim.g.tmux_navigator_no_mappings = 1
+
+function _G.unmap_tmux_key()
+	vim.api.nvim_del_keymap("n", "<C-\\>") -- Unmap in normal mode
+	vim.api.nvim_del_keymap("t", "<C-\\>") -- Unmap in terminal mode
+end
+
+vim.keymap.set("n", "<C-\\>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle ToggleTerm" })
+
+vim.keymap.set("v", "<C-\\>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle ToggleTerm" })
+
+vim.keymap.set("i", "<C-\\>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle ToggleTerm" })
