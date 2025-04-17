@@ -86,12 +86,12 @@ require("core.plugin-mappings")
 vim.g.tmux_navigator_no_mappings = 1
 
 function _G.unmap_tmux_key()
-	vim.api.nvim_del_keymap("n", "<C-\\>") -- Unmap in normal mode
-	vim.api.nvim_del_keymap("t", "<C-\\>") -- Unmap in terminal mode
+	vim.api.nvim_del_keymap("n", "<C-\\>")
+	vim.api.nvim_del_keymap("t", "<C-\\>")
+	vim.api.nvim_del_keymap("n", "<C-H>")
+	vim.api.nvim_del_keymap("t", "<C-H>")
 end
 
 vim.keymap.set("n", "<C-\\>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle ToggleTerm" })
-
 vim.keymap.set("v", "<C-\\>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle ToggleTerm" })
-
 vim.keymap.set("i", "<C-\\>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle ToggleTerm" })
