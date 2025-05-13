@@ -77,6 +77,7 @@ require("lazy").setup({
 	require("plugins.toggleterm"),
 	require("plugins.notification"),
 	require("plugins.trouble"),
+	require("plugins.showkeys"),
 })
 
 vim.keymap.set("n", "<leader>dd", require("telescope.builtin").diagnostics, { desc = "Show diagnostics in Telescope" })
