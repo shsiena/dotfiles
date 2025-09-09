@@ -1,7 +1,12 @@
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
-vim.api.nvim_set_keymap("n", "<leader>t", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<esc>", [[<C-\> <C-n>]], { noremap = true, silent = true })
+
+vim.keymap.set("n", "<C-z>", "<Nop>", { noremap = true })
+vim.keymap.set("n", "<leader>dd", require("telescope.builtin").diagnostics, { desc = "Show diagnostics in Telescope" })
+vim.keymap.set("n", "<C-\\>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle ToggleTerm" })
+vim.keymap.set("v", "<C-\\>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle ToggleTerm" })
+vim.keymap.set("i", "<C-\\>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle ToggleTerm" })
 
 function _G.set_terminal_keymaps()
 	local opts = { buffer = 0 }

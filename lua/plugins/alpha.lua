@@ -7,6 +7,7 @@ return {
 	config = function()
 		local alpha = require("alpha")
 		local dashboard = require("alpha.themes.dashboard")
+		local ascii = require("ascii")
 
 		local headers = {
 			{
@@ -102,18 +103,64 @@ return {
 				[[		⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠴⡿⣟⣿⣿⣶⡶⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀	]],
 			},
 
-			-- [[							  _					]],
-			-- [[	   ____  ___  ____ _   __(_)___ ___			]],
-			-- [[	  / __ \/ _ \/ __ \ | / / / __ `__ \		]],
-			-- [[	 / / / /  __/ /_/ / |/ / / / / / / /		]],
-			-- [[	/_/ /_/\___/\____/|___/_/_/ /_/ /_/			]],
-			-- [[													]],
+			{
+				[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣶⣄⠀⠀⢀⠀⠀					     ]],
+				[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣷⣴⣿⡄⠀⠀⠀⠀⠀⢀⡀			     ]],
+				[[⠀⠀⠀⠀⠀⠀⠀⠰⣶⣾⣿⣿⣿⣿⣿⡇⠀⢠⣷⣤⣶⣿⡇			     ]],
+				[[⠀⠀⠀⠀⠀⠀⠀⠀⠙⣿⣿⣿⣿⣿⣿⣿⣀⣿⣿⣿⣿⣿⣧⣀⠀⠀⠀⠀     ⠀     ]],
+				[[⠀⠀⠀⠀⠀⠀⣷⣦⣀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃				 ]],
+				[[⠀⠀⠀⢲⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠁				 ]],
+				[[⠀⠀⠀⠀⠙⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡟⠁⠀				 ]],
+				[[⠀⠀⠀⠀⠚⠻⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠿⠂				 ]],
+				[[⠀⠀⠀⠀⠀⠀⠀⠀⠉⠙⢻⣿⣿⡿⠛⠉⡇⠀					 ]],
+				[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⠋⠁⠀⠀⠀⠸⡄⠀⠀⠀⠀⠀⠀               ]],
+				[[⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢳⡀  use neovim eh?    ]],
+			},
+
+			{
+				[[				⠀⠀⠀⠀⠀⠀⠀⠀⡠⠖⠋⠉⠉⠳⡴⠒⠒⠒⠲⠤⢤⣀		             ]],
+				[[				⠀⠀⠀⠀⠀⠀⣠⠊⠀⠀⡴⠚⡩⠟⠓⠒⡖⠲⡄⠀⠀⠈⡆		             ]],
+				[[				⠀⠀⠀⠀⢀⡞⠁⢠⠒⠾⢥⣀⣇⣚⣹⡤⡟⠀⡇⢠⠀⢠⠇		             ]],
+				[[				⠀⠀⠀⠀⢸⣄⣀⠀⡇⠀⠀⠀⠀⠀⢀⡜⠁⣸⢠⠎⣰⣃		             ]],
+				[[				⠀⠀⠀⠸⡍⠀⠉⠉⠛⠦⣄⠀⢀⡴⣫⠴⠋⢹⡏⡼⠁⠈⠙⢦⡀	             ]],
+				[[				⠀⠀⠀⣀⡽⣄⠀⠀⠀⠀⠈⠙⠻⣎⡁⠀⠀⣸⡾⠀⠀⠀⠀⣀⡹⠂	             ]],
+				[[				⠀⢀⡞⠁⠀⠈⢣⡀⠀⠀⠀⠀⠀⠀⠉⠓⠶⢟⠀⢀⡤⠖⠋⠁                 ]],
+				[[				⠀ ⠉⠙⠒⠦⡀⠙⠦⣀⠀⠀⠀⠀⠀⠀⢀⣴⡷⠋                     ]],
+				[[				  ⠀⠀⠀⠀⠘⢦⣀⠈⠓⣦⣤⣤⣤⢶⡟⠁                       ]],
+				[[			    ⢤⣤⣤⡤⠤⠤⠤⠤⣌⡉⠉⠁⠀⠀⢸n⠁⡠⠖⠒⠒⢒⣒⡶⣶⠤               ]],
+				[[				 ⠉⠲⣍⠓⠦⣄⠀⠀⠙⣆⠀⠀⠀⡞e⡼⢀⣠⠴⠊⢉⡤⠚⠁                ]],
+				[[				⠀ ⠀⠈⠳⣄⠈⠙⢦⡀⢸⡀⠀⢰⢣o⠷⣯⣤⠤⠚⠉                   ]],
+				[[				⠀⠀ ⠀⠀⠈⠑⣲⠤⠬⠿⠧⣠⢏v                          ]],
+				[[				⠀⠀ ⢀⡴⠚⠉⠉⢉⣳⣄⣠⠏i                           ]],
+				[[	  			 ⣠⣴⣟⣒⣋⣉⣉⡭⠟⢡⠏m                            ]],
+				[[                                                       ]],
+				[[	"Developers must seize the means of editing text."   ]],
+				[[										   - Karl Marx   ]],
+			},
+			ascii.art.text.neovim.sharp,
+			ascii.art.text.neovim.dos_rebel,
+			ascii.art.text.neovim.ansi_shadow,
+			ascii.art.text.neovim.default1,
+			ascii.art.text.neovim.decimal,
+			ascii.art.text.neovim.morse,
+			ascii.art.text.doom.DooM,
+			ascii.art.planets.planets.earth,
+			ascii.art.planets.planets.saturn,
+			-- ascii.art.computers.linux.redhat,
+			ascii.art.misc.hydra.hydra,
+			ascii.art.computers.atari.atari_logo,
 		}
 
 		math.randomseed(os.time())
 		local random_header = headers[math.random(#headers)]
 
-		dashboard.section.header.val = random_header
+		local rand_enabled = true
+
+		if rand_enabled then
+			dashboard.section.header.val = random_header
+		else
+			dashboard.section.header.val = ascii.art.animals.dogs.lucky
+		end
 
 		alpha.setup(dashboard.opts)
 	end,

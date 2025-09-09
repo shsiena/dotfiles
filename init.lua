@@ -56,8 +56,6 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
 	end,
 })
 
-vim.keymap.set("n", "<C-z>", "<Nop>", { noremap = true })
-
 require("lazy").setup({
 	require("plugins.neotree"),
 	require("plugins.colortheme"),
@@ -69,6 +67,7 @@ require("lazy").setup({
 	require("plugins.autocompletion"),
 	require("plugins.none-ls"),
 	require("plugins.gitsigns"),
+	require("plugins.ascii"),
 	require("plugins.alpha"),
 	require("plugins.indent-blankline"),
 	require("plugins.misc"),
@@ -80,7 +79,6 @@ require("lazy").setup({
 	require("plugins.showkeys"),
 })
 
-vim.keymap.set("n", "<leader>dd", require("telescope.builtin").diagnostics, { desc = "Show diagnostics in Telescope" })
 vim.cmd([[colorscheme tokyonight-night]])
 
 require("core.plugin-mappings")
@@ -93,6 +91,4 @@ function _G.unmap_tmux_key()
 	vim.api.nvim_del_keymap("t", "<C-H>")
 end
 
-vim.keymap.set("n", "<C-\\>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle ToggleTerm" })
-vim.keymap.set("v", "<C-\\>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle ToggleTerm" })
-vim.keymap.set("i", "<C-\\>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true, desc = "Toggle ToggleTerm" })
+vim.treesitter.language.register("tsx", "typescriptreact")

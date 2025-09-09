@@ -53,6 +53,7 @@ return {
 		--    That is to say, every time a new file is opened that is associated with
 		--    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
 		--    function will be executed to configure the current buffer
+
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 			callback = function(event)
@@ -243,11 +244,29 @@ return {
 		require("mason-lspconfig").setup({
 			handlers = {
 				function(server_name)
+					vim.notify("TEST")
 					local server = servers[server_name] or {}
 					-- This handles overriding only values explicitly passed
 					-- by the server configuration above. Useful when disabling
 					-- certain features of an LSP (for example, turning off formatting for tsserver)
 					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+
+					if server_name == "ts_ls" then
+						server.root_dir = function(fname)
+							local util = require("lspconfig.util")
+
+							-- Try closest project root
+							local root = util.root_pattern("tsconfig.json", "package.json", ".git")(fname)
+
+							-- If we got a valid string, good
+							if type(root) == "string" then
+								return root
+							end
+
+							-- Otherwise, default to cwd (where you launched Neovim)
+							return vim.loop.cwd()
+						end
+					end
 					require("lspconfig")[server_name].setup(server)
 				end,
 			},
