@@ -77,6 +77,7 @@ require("lazy").setup({
 	require("plugins.notification"),
 	require("plugins.trouble"),
 	require("plugins.showkeys"),
+	require("plugins.claude"),
 })
 
 vim.cmd([[colorscheme tokyonight-night]])
