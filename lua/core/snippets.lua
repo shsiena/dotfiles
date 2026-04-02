@@ -19,11 +19,10 @@ vim.diagnostic.config {
   float = {
     source = 'always', -- Or "if_many"
   },
-  -- Make diagnostic background transparent
-  on_ready = function()
-    vim.cmd 'highlight DiagnosticVirtualText guibg=NONE'
-  end,
 }
+
+-- Make diagnostic background transparent
+vim.cmd 'highlight DiagnosticVirtualText guibg=NONE'
 
 -- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })

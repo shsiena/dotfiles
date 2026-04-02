@@ -77,6 +77,12 @@ return {
 				--  For example, in C this would take you to the header.
 				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
+				-- Show hover documentation for symbol under cursor
+				map("K", vim.lsp.buf.hover, "Hover Documentation")
+
+				-- Show signature help (parameter info) when inside function arguments
+				map("<C-S-k>", vim.lsp.buf.signature_help, "Signature Help", "i")
+
 				-- The following two autocommands are used to highlight references of the
 				-- word under your cursor when your cursor rests there for a little while.
 				--    See `:help CursorHold` for information about when this is executed
@@ -216,7 +222,6 @@ return {
 		require("mason-lspconfig").setup({
 			handlers = {
 				function(server_name)
-					vim.notify("TEST")
 					local server = servers[server_name] or {}
 					-- This handles overriding only values explicitly passed
 					-- by the server configuration above. Useful when disabling
@@ -236,7 +241,7 @@ return {
 							end
 
 							-- Otherwise, default to cwd (where you launched Neovim)
-							return vim.loop.cwd()
+							return vim.uv.cwd()
 						end
 					end
 					require("lspconfig")[server_name].setup(server)

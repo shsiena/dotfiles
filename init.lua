@@ -11,18 +11,20 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.clipboard = {
-	name = "win32yank",
-	copy = {
-		["+"] = "win32yank.exe -i --crlf",
-		["*"] = "win32yank.exe -i --crlf",
-	},
-	paste = {
-		["+"] = "win32yank.exe -o --lf",
-		["*"] = "win32yank.exe -o --lf",
-	},
-	cache_enabled = 0,
-}
+if vim.fn.has("wsl") == 1 then
+	vim.g.clipboard = {
+		name = "win32yank",
+		copy = {
+			["+"] = "win32yank.exe -i --crlf",
+			["*"] = "win32yank.exe -i --crlf",
+		},
+		paste = {
+			["+"] = "win32yank.exe -o --lf",
+			["*"] = "win32yank.exe -o --lf",
+		},
+		cache_enabled = 0,
+	}
+end
 
 vim.opt.clipboard = "unnamedplus"
 
@@ -77,7 +79,9 @@ require("lazy").setup({
 	require("plugins.toggleterm"),
 	require("plugins.notification"),
 	require("plugins.trouble"),
-	require("plugins.showkeys"),
+	require("plugins.screenkey"),
+	require("plugins.discord_presence"),
+	require("plugins.markdown-renderer"),
 })
 
 vim.cmd([[colorscheme tokyonight-night]])

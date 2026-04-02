@@ -1,9 +1,10 @@
 return {
   'nvim-treesitter/nvim-treesitter',
   build = ':TSUpdate',
-  main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-  opts = {
-    ensure_installed = {
+  config = function()
+    require('nvim-treesitter').setup()
+
+    local ensure_installed = {
       'lua',
       'python',
       'javascript',
@@ -30,12 +31,24 @@ return {
       'tsx',
       'css',
       'html',
-    },
-    auto_install = true,
-    highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = { 'ruby' },
-    },
-    indent = { enable = true, disable = { 'ruby' } },
-  },
+      'prisma',
+    }
+
+    local installed = require('nvim-treesitter').get_installed()
+    local to_install = vim.tbl_filter(function(lang)
+      return not vim.list_contains(installed, lang)
+    end, ensure_installed)
+
+    if #to_install > 0 then
+      require('nvim-treesitter').install(to_install)
+    end
+
+    -- Auto-enable treesitter highlighting for languages without built-in Neovim support
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = { 'prisma' },
+      callback = function()
+        vim.treesitter.start()
+      end,
+    })
+  end,
 }
