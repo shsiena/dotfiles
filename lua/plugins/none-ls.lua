@@ -9,28 +9,42 @@ return {
     local formatting = null_ls.builtins.formatting -- to setup formatters
     local diagnostics = null_ls.builtins.diagnostics -- to setup linters
 
+    -- Detect architecture
+    local arch = vim.loop.os_uname().machine
+    local is_arm = arch == 'aarch64' or arch == 'arm64'
+
     -- Formatters & linters for mason to install
+    local ensure_installed = {
+      'prettier', -- ts/js formatter
+      'stylua', -- lua formatter
+      'eslint_d', -- ts/js linter
+      'shfmt', -- Shell formatter
+      'ruff', -- Python linter and formatter
+    }
+
+    -- checkmake doesn't have arm64 binaries
+    if not is_arm then
+      table.insert(ensure_installed, 'checkmake')
+    end
+
     require('mason-null-ls').setup {
-      ensure_installed = {
-        'prettier', -- ts/js formatter
-        'stylua', -- lua formatter
-        'eslint_d', -- ts/js linter
-        'shfmt', -- Shell formatter
-        'checkmake', -- linter for Makefiles
-        'ruff', -- Python linter and formatter
-      },
+      ensure_installed = ensure_installed,
       automatic_installation = true,
     }
 
     local sources = {
-      diagnostics.checkmake,
       formatting.prettier.with { filetypes = { 'html', 'json', 'yaml', 'markdown' } },
       formatting.stylua,
       formatting.shfmt.with { args = { '-i', '4' } },
-      formatting.terraform_fmt,
       require('none-ls.formatting.ruff').with { extra_args = { '--extend-select', 'I' } },
       require 'none-ls.formatting.ruff_format',
     }
+
+    -- Add x64-only sources
+    if not is_arm then
+      table.insert(sources, diagnostics.checkmake)
+      table.insert(sources, formatting.terraform_fmt)
+    end
 
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
     null_ls.setup {
